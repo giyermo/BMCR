@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>u</title>
+  <meta name="description" content="Basic example of data museum"></meta>
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
+  <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script> 
+  <script src="song-changer.js"></script>
+</head>
+
+<body>
+
+  <a-scene id="scene"
+  stats
+  physics="debug: true">    
+
+    <a-assets >
+      <img id="city-night" src="textures/newyork.jpg">
+
+      <img id="night" src="textures/night.jpg">
+
+      <img id="wood-floor" src="textures/wood-floor.jpeg">
+
+      <img id="dark-brick-wall" src="textures/dark-brick-wall.jpeg">
+
+      <img id="interior-wall" src="textures/interior-wall.jpg">
+
+      <img id="bathroom-wall" src="textures/bathroom-wall.jpeg">
+
+      <img id="bathroom-floor" src="textures/bathroom-floor.jpeg">
+
+      <img id="wave-wall" src="textures/wave-wall.jpg">
+
+      <img id="ceiling" src="textures/ceiling.jpeg">
+
+      <img id="ceiling2" src="textures/ceiling2.jpg">
+
+      <img id="glass" src="textures/glass.jpeg">
+
+      <img id="stair" src="textures/stair.jpeg">
+
+      <img id="spotify-template" src="textures/spotify-template.jpeg">
+
+      <!--?Mixins and models-->
+      <a-mixin id="stair-step" geometry="primitive: box; width: 2; depth: 0.4; height: 0.2"></a-mixin>
+
+      <a-asset-item id="modern-sofa"
+      src="models/modern-sofa/scene.gltf">
+      </a-asset-item>
+
+      <a-asset-item id="terrace-lights"
+      src="models/terrace-lights/scene.gltf">
+      </a-asset-item>
+
+      <a-asset-item id="coffee-table"
+      src="models/coffee-table/scene.gltf">
+      </a-asset-item>
+
+      <a-asset-item id="couch"
+      src="models/couch/scene.gltf">
+      </a-asset-item>
+
+      <a-asset-item id="tv"
+      src="models/tv/scene.gltf">
+      </a-asset-item>
+
+      <a-asset-item id="tv-table"
+      src="models/tv-table/scene.gltf">
+      </a-asset-item>
+
+      <a-asset-item id="speaker"
+      src="models/speaker/scene.gltf">
+      </a-asset-item>
+
+      <a-asset-item id="dining-table"
+      src="models/dining-table/scene.gltf">
+      </a-asset-item>
+
+      <a-asset-item id="dining-chair"
+      src="models/dining-chair/scene.gltf">
+      </a-asset-item>
+
+      <a-asset-item id="square-lamp"
+      src="models/square-lamp/scene.gltf">
+      </a-asset-item>
+
+      <a-asset-item id="carpet1"
+      src="models/carpet1/scene.gltf">
+      </a-asset-item>
+
+      <a-asset-item id="shower"
+      src="models/shower/scene.gltf">
+      </a-asset-item>
+
+      <a-asset-item id="shower-head"
+      src="models/shower-head/scene.gltf">
+      </a-asset-item>
+
+      <a-asset-item id="sink"
+      src="models/bathroom-sink/scene.gltf">
+      </a-asset-item>
+
+      <a-asset-item id="toilet"
+      src="models/toilet/scene.gltf">
+      </a-asset-item>
+
+      <a-asset-item id="great-dane"
+      src="models/great-dane/scene.gltf">
+      </a-asset-item>
+
+      <a-asset-item id="husky"
+      src="models/husky/scene.gltf">
+      </a-asset-item>
+    </a-assets>
+
+    <a-sky id="sky"
+    scale="0.6 0.6 0.6"
+    rotation="0 -135 0"
+    src="#night"></a-sky>
+
+    <!--?fundamentals-->
+
+      <!--*lower-floor-->
+
+    <a-plane id="lower-floor"
+    height="20" width="20"
+    rotation="270 0 0"
+    src="#wood-floor"
+    repeat="12 12"
+    side="double"
+    static-body
+    position="0 0 0"></a-plane>
+
+    <a-plane id="wall(-z)"
+    height="5" width="20"
+    rotation="0 0 0"
+    src="#wave-wall"
+    repeat="6 3"
+    side="double"
+    static-body
+    position="0 2.5 -10"></a-plane>
+
+    <a-plane id="wall(z)"
+    height="5" width="10"
+    rotation="0 180 0"
+    src="#wave-wall"
+    repeat="3 3"
+    side="double"
+    static-body
+    position="-5 2.5 10"></a-plane>
+
+    <a-plane id="glass-pane(z)"
+    height="6.5" width="10"
+    rotation="0 180 0"
+    color="black"
+    src="#glass"
+    opacity="0.15"
+    static-body
+    position="5 3.25 10"></a-plane>
+
+    <a-plane id="wall(-x)"
+    height="5" width="20"
+    rotation="0 90 0"
+    src="#wave-wall"
+    repeat="6 3"
+    side="double"
+    static-body
+    position="-10 2.5 0"></a-plane>
+
+    <a-plane id="wall(x)"
+    height="5" width="10"
+    rotation="0 270 0"
+    src="#wave-wall"
+    repeat="3 3"
+    side="double"
+    static-body
+    position="10 2.5 -5"></a-plane>
+
+    <a-plane id="glass-pane(x)"
+    height="6.5" width="10"
+    rotation="0 270 0"
+    color="black"
+    src="#glass"
+    opacity="0.15"
+    side="double"
+    static-body
+    position="10 3.25 5"></a-plane>
+
+    <a-box id="glass-pane-lower-floor-separator"
+    height="6.5" depth="0.05" width="0.05"
+    color="black"
+    opacity="0.75"
+    position="10 3.25 10"></a-box>
+
+    <a-entity id="step1"
+    mixin="stair-step"
+    rotation="0 90 0"
+    material="src: #stair; repeat: 2 1"
+    static-body
+    position="0.2 0.3 -9"></a-entity>
+
+    <a-entity id="step2"
+    mixin="stair-step"
+    rotation="0 90 0"
+    material="src: #stair; repeat: 2 1"
+    static-body
+    position="0.6 0.6 -9"></a-entity>
+
+    <a-entity id="step3"
+    mixin="stair-step"
+    rotation="0 90 0"
+    material="src: #stair; repeat: 2 1"
+    static-body
+    position="1 0.9 -9"></a-entity>
+
+    <a-entity id="step4"
+    mixin="stair-step"
+    rotation="0 90 0"
+    material="src: #stair; repeat: 2 1"
+    static-body
+    position="1.4 1.2 -9"></a-entity>
+
+    <a-entity id="step5"
+    mixin="stair-step"
+    rotation="0 90 0"
+    material="src: #stair; repeat: 2 1"
+    static-body
+    position="1.8 1.5 -9"></a-entity>
+
+    <a-entity id="step6"
+    mixin="stair-step"
+    rotation="0 90 0"
+    material="src: #stair; repeat: 2 1"
+    static-body
+    position="2.2 1.8 -9"></a-entity>
+
+    <a-entity id="step7"
+    mixin="stair-step"
+    rotation="0 90 0"
+    material="src: #stair; repeat: 2 1"
+    static-body
+    position="2.6 2.1 -9"></a-entity>
+
+    <a-entity id="step8"
+    mixin="stair-step"
+    rotation="0 90 0"
+    material="src: #stair; repeat: 2 1"
+    static-body
+    position="3 2.4 -9"></a-entity>
+
+    <a-entity id="step9"
+    mixin="stair-step"
+    rotation="0 90 0"
+    material="src: #stair; repeat: 2 1"
+    static-body
+    position="3.4 2.7 -9"></a-entity>
+
+    <a-entity id="step10"
+    mixin="stair-step"
+    rotation="0 90 0"
+    material="src: #stair; repeat: 2 1"
+    static-body
+    position="3.8 3 -9"></a-entity>
+
+    <a-entity id="step11"
+    mixin="stair-step"
+    rotation="0 90 0"
+    material="src: #stair; repeat: 2 1"
+    static-body
+    position="4.2 3.3 -9"></a-entity>
+
+    <a-entity id="step12"
+    mixin="stair-step"
+    rotation="0 90 0"
+    material="src: #stair; repeat: 2 1"
+    static-body
+    position="4.6 3.6 -9"></a-entity>
+
+    <a-entity id="step13"
+    mixin="stair-step"
+    rotation="0 90 0"
+    material="src: #stair; repeat: 2 1"
+    static-body
+    position="5 3.9 -9"></a-entity>
+
+    <a-entity id="step14"
+    mixin="stair-step"
+    rotation="0 90 0"
+    material="src: #stair; repeat: 2 1"
+    static-body
+    position="5.4 4.2 -9"></a-entity>
+
+    <a-entity id="step15"
+    mixin="stair-step"
+    rotation="0 90 0"
+    material="src: #stair; repeat: 2 1"
+    static-body
+    position="5.8 4.5 -9"></a-entity>
+
+    <a-entity id="step15"
+    mixin="stair-step"
+    rotation="0 90 0"
+    material="src: #stair; repeat: 2 1"
+    static-body
+    position="6.2 4.8 -9"></a-entity>
+
+    <a-plane id="separation-ceiling1"
+    height="0.1" width="11.4"
+    rotation="0 180 0"
+    src="#ceiling"
+    repeat="6 12"
+    static-body
+    position="0.7 4.95 -8"></a-plane>
+
+    <a-plane id="separation-ceiling2"
+    height="0.1" width="2"
+    rotation="0 270 0"
+    src="#ceiling"
+    repeat="6 12"
+    static-body
+    position="6.4 4.95 -9"></a-plane>
+
+    <a-plane id="separation-ceiling3"
+    height="0.1" width="2"
+    rotation="0 90 0"
+    src="#ceiling"
+    repeat="6 12"
+    static-body
+    position="-5 4.95 -9"></a-plane>
+
+    <a-plane id="lower-ceiling1"
+    height="18" width="20"
+    rotation="90 0 0"
+    src="#ceiling"
+    repeat="6 12"
+    static-body
+    position="0 4.9 1"></a-plane>
+
+    <a-plane id="lower-ceiling2"
+    height="2" width="3.6"
+    rotation="90 0 0"
+    src="#ceiling"
+    repeat="1.08 1.33"
+    static-body
+    position="8.2 4.9 -9"></a-plane>
+
+    <a-plane id="lower-ceiling3"
+    height="2" width="5"
+    rotation="90 0 0"
+    src="#ceiling"
+    repeat="1.5 1.33"
+    static-body
+    position="-7.5 4.9 -9"></a-plane>
+
+      <!--*upper-floor-->
+
+    <a-plane id="upper-floor1"
+    height="18" width="20"
+    rotation="270 0 0"
+    src="#wood-floor"
+    repeat="12 12"
+    static-body
+    position="0 5 1"></a-plane>
+
+    <a-plane id="upper-floor2"
+    height="2" width="3.6"
+    rotation="270 0 0"
+    src="#wood-floor"
+    repeat="2.16 1.33"
+    static-body
+    position="8.2 5 -9"></a-plane>
+
+    <a-plane id="upper-floor3"
+    height="2" width="5"
+    rotation="270 0 0"
+    src="#wood-floor"
+    repeat="3 1.33"
+    static-body
+    position="-7.5 5 -9"></a-plane>
+
+    <a-plane id="upper-wall(-z)"
+    height="5" width="20"
+    rotation="0 0 0"
+    src="#wave-wall"
+    repeat="6 3"
+    side="double"
+    static-body
+    position="0 7.5 -10"></a-plane>
+
+    <a-plane id="upper-wall-corridor"
+    height="1.5" width="20"
+    rotation="0 180 0"
+    src="#wave-wall"
+    repeat="6 0.9"
+    static-body
+    position="0 9.25 -5"></a-plane>
+
+    <a-plane id="upper-wall-corridor-inside-room"
+    width="10" height="1.5"
+    rotation="0 0 0"
+    src="#interior-wall"
+    repeat="1 0.15"
+    static-body
+    position="-5 9.25 -5"></a-plane>
+
+    <a-plane id="upper-wall-corridor-inside-bathroom"
+    width="8" height="1.5"
+    rotation="0 0 0"
+    src="#bathroom-wall"
+    repeat="8 1.5"
+    static-body
+    position="4 9.25 -5"></a-plane>
+
+    <a-plane id="wall-corridor(x)"
+    height="5" width="5"
+    rotation="0 90 0"
+    src="#wave-wall"
+    repeat="1.5 3"
+    side="double"
+    static-body
+    position="10 7.5 -7.5"></a-plane>
+
+    <a-plane id="wall-corridor(-x)"
+    height="5" width="5"
+    rotation="0 90 0"
+    src="#wave-wall"
+    repeat="1.5 3"
+    side="double"
+    static-body
+    position="-10 7.5 -7.5"></a-plane>
+
+    <a-plane id="wall-corridor-1"
+    height="3.5" width="4"
+    rotation="0 180 0"
+    src="#wave-wall"
+    repeat="1.2 2.1"
+    static-body
+    position="6 6.75 -5"></a-plane>
+
+    <a-plane id="wall-corridor-1-inside"
+    width="4" height="3.5"
+    rotation="0 0 0"
+    src="#bathroom-wall"
+    repeat="4 3.5"
+    static-body
+    position="6 6.75 -5"></a-plane>
+
+    <a-plane id="wall-corridor-2"
+    height="3.5" width="5"
+    rotation="0 180 0"
+    src="#wave-wall"
+    repeat="1.5 2.1"
+    static-body
+    position="-0.5 6.75 -5"></a-plane>
+
+    <a-plane id="wall-corridor-2-inside-room"
+    height="3.5" width="3"
+    rotation="0 0 0"
+    src="#interior-wall"
+    repeat="0.35 0.5"
+    static-body
+    position="-1.5 6.75 -5"></a-plane>
+
+    <a-plane id="wall-corridor-2-inside-bathroom"
+    height="3.5" width="2"
+    rotation="0 0 0"
+    src="#bathroom-wall"
+    repeat="2 3.5"
+    static-body
+    position="1 6.75 -5"></a-plane>
+
+    <a-plane id="wall-corridor-3"
+    height="3.5" width="5"
+    rotation="0 180 0"
+    src="#wave-wall"
+    repeat="1.5 2.1"
+    static-body
+    position="-7.5 6.75 -5"></a-plane>
+
+    <a-plane id="wall-corridor-terrace-inside-1"
+    height="3.5" width="5"
+    rotation="180 180 0"
+    src="#interior-wall"
+    repeat="0.5 0.5"
+    static-body
+    position="-7.5 6.75 -5"></a-plane>
+
+    <a-plane id="wall-corridor-terrace"
+    height="5" width="5"
+    rotation="0 90 0"
+    src="#dark-brick-wall"
+    repeat="0.5 1"
+    static-body
+    position="8 7.5 -2.5"></a-plane>
+
+    <a-plane id="wall-corridor-terrace-bathroom"
+    height="5" width="5"
+    rotation="0 270 0"
+    src="#bathroom-wall"
+    repeat="5 5"
+    static-body
+    position="8 7.5 -2.5"></a-plane>
+
+    <a-plane id="upper-wall-corridor-terrace"
+    height="1.5" width="2"
+    rotation="0 0 0"
+    src="#dark-brick-wall"
+    repeat="0.2 0.3"
+    static-body
+    position="9 9.25 -5"></a-plane>
+
+    <a-plane id="terrace-wall1"
+    height="5" width="8"
+    rotation="0 0 0"
+    src="#dark-brick-wall"
+    repeat="0.8 1"
+    static-body
+    position="4 7.5 0"></a-plane>
+
+    <a-plane id="terrace-wall1-inside"
+    height="5" width="8"
+    rotation="0 180 0"
+    src="#bathroom-wall"
+    repeat="8 5"
+    static-body
+    position="4 7.5 0"></a-plane>
+
+    <a-plane id="terrace-wall2"
+    height="5" width="8"
+    rotation="0 90 0"
+    src="#dark-brick-wall"
+    repeat="0.8 1"
+    static-body
+    position="0 7.5 4"></a-plane>
+
+    <a-plane id="terrace-wall2-inside"
+    height="5" width="8"
+    rotation="0 270 0"
+    src="#interior-wall"
+    repeat="0.5 0.8"
+    static-body
+    position="0 7.5 4"></a-plane>
+
+    <a-plane id="separation-wall"
+    height="5" width="5"
+    rotation="0 270 0"
+    src="#interior-wall"
+    repeat="0.5 0.5"
+    static-body
+    position="0 7.5 -2.5"></a-plane>
+
+    <a-plane id="separation-wall-bathroom"
+    height="5" width="5"
+    rotation="0 90 0"
+    src="#bathroom-wall"
+    repeat="5 5"
+    static-body
+    position="0 7.5 -2.5"></a-plane>
+
+    <a-plane id="bathroom-ceiling"
+    width="8" height="5"
+    rotation="270 0 0"
+    src="#bathroom-floor"
+    repeat="4 2.5"
+    position="4 5.05 -2.5"></a-plane>
+
+    <a-plane id="room-wall1"
+    height="5" width="10"
+    rotation="0 90 0"
+    src="#interior-wall"
+    repeat="0.5 1"
+    static-body
+    position="-10 7.5 0"></a-plane>
+
+    <a-plane id="room-wall1-glass"
+    height="5" width="5"
+    rotation="0 90 0"
+    opacity="0.15"
+    src="#glass"
+    color="black"
+    side="double"
+    static-body
+    position="-10 7.5 7.5"></a-plane>
+
+    <a-box id="room-glass-separator1"
+    width="0.05" height="5" depth="0.05"
+    color="black"
+    opacity="0.75"
+    position="-10 7.5 10"></a-box>
+
+    <a-box id="room-glass-separator2"
+    width="0.05" height="0.05" depth="5"
+    color="black"
+    opacity="0.75"
+    position="-10 10 7.5"></a-box>
+
+    <a-box id="room-glass-separator3"
+    width="5" height="0.05" depth="0.05"
+    color="black"
+    opacity="0.75"
+    position="-7.5 10 10"></a-box>
+
+    <a-plane id="room-wall2"
+    height="5" width="5"
+    rotation="0 180 0"
+    src="#interior-wall"
+    repeat="0.5 0.5"
+    static-body
+    position="-2.5 7.5 10"></a-plane>
+
+    <a-plane id="room-wall2-glass"
+    height="5" width="5"
+    rotation="0 180 0"
+    opacity="0.15"
+    src="#glass"
+    color="black"
+    side="double"
+    static-body
+    position="-7.5 7.5 10"></a-plane>
+
+    <a-plane id="room-top-glass"
+    height="5" width="5"
+    rotation="90 0 0"
+    opacity="0.15"
+    src="#glass"
+    color="black"
+    side="double"
+    static-body
+    position="-7.5 10 7.5"></a-plane>
+
+    <a-plane id="wall-corridor-terrace-glass-pane"
+    height="1.5" width="5"
+    rotation="0 90 0"
+    opacity="0.15"
+    src="#glass"
+    color="black"
+    side="double"
+    static-body
+    position="10 5.75 -2.5"></a-plane>
+
+    <a-box id="corridor-terrace-glass-pane-mark"
+    height="0.025" width="15.025" depth="0.025"
+    rotation="0 90 0"
+    color="black"
+    static-body
+    position="10 6.5 2.5125"></a-box>
+
+    <a-box id="terrace-glass-pane-mark"
+    height="0.025" width="10" depth="0.025"
+    rotation="0 0 0"
+    color="black"
+    static-body
+    position="5 6.5 10"></a-box>
+
+    <a-plane id="stair-glass-pane-1"
+    height="1.5" width="11.4"
+    rotation="0 180 0"
+    color="black"
+    src="#glass"
+    opacity="0.15"
+    static-body
+    position="0.7 5.75 -8"></a-plane>
+ 
+    <a-plane id="stair-glass-pane-2"
+    height="1.5" width="2"
+    rotation="0 90 0"
+    color="black"
+    src="#glass"
+    opacity="0.15"
+    static-body
+    position="-5 5.75 -9"></a-plane>
+    
+    <a-box class="stair-glass-pane-mark"
+    height="0.025" width="11.4" depth="0.025"
+    rotation="0 0 0"
+    color="black"
+    static-body
+    position="0.7 6.5 -8"></a-box>
+
+    <a-box class="stair-glass-pane-mark"
+    height="0.025" width="2" depth="0.025"
+    rotation="0 90 0"
+    color="black"
+    static-body
+    position="-5 6.5 -9"></a-box>
+
+    <a-box class="stair-glass-pane-mark"
+    height="1.525" width="0.025" depth="0.025"
+    rotation="0 0 0"
+    color="black"
+    static-body
+    position="-5 5.75 -8"></a-box>
+
+    <a-box class="stair-glass-pane-mark"
+    height="1.525" width="0.025" depth="0.025"
+    rotation="0 0 0"
+    color="black"
+    static-body
+    position="6.4 5.75 -8"></a-box>
+
+    <a-plane id="room-upper-wall"
+    width="2" height="1.5"
+    rotation="0 270 0"
+    src="#interior-wall"
+    repeat="0.2 0.15"
+    position="0 9.25 9"></a-plane>
+
+    <a-plane id="terrace-upper-wall"
+    width="2" height="1.5"
+    rotation="0 90 0"
+    src="#dark-brick-wall"
+    repeat="0.2 0.3"
+    position="0 9.25 9"></a-plane>
+
+    <a-plane id="corridor-ceiling1"
+    width="20" height="5"
+    rotation="90 0 0"
+    src="#ceiling"
+    repeat="1 1"
+    position="0 10 -7.5"></a-plane>
+
+    <a-plane id="room-ceiling1"
+    width="5" height="10"
+    rotation="90 0 0"
+    src="#ceiling2"
+    repeat="1 1.5"
+    position="-7.5 10 0"></a-plane>
+
+    <a-plane id="room-ceiling2"
+    width="5" height="15"
+    rotation="90 0 0"
+    src="#ceiling2"
+    repeat="1 2.25"
+    position="-2.5 10 2.5"></a-plane>
+
+    <a-plane id="bathroom-ceiling"
+    width="8" height="5"
+    rotation="90 0 0"
+    src="#ceiling2"
+    repeat="1.6 0.75"
+    position="4 10 -2.5"></a-plane>
+
+
+    <!--*Dogs-->
+    <a-entity id="great-dane"
+    rotation="0 180 0"
+    scale="0.0125 0.0125 0.0125"
+    static-body
+    gltf-model="#great-dane"
+    position="-5 5 5"></a-entity>
+
+    <a-entity id="husky"
+    rotation="0 180 0"
+    scale="0.0115 0.0115 0.0115"
+    static-body
+    gltf-model="#husky"
+    position="-3 5 5"></a-entity>
+
+    <!--*Furtniture-->
+
+      <!--?lower floor-->
+    <a-entity id="lower-floor-couch"
+    rotation="0 0 0"
+    scale="3 3 3"
+    gltf-model="#couch"
+    position="-5 0.7 3"></a-entity>
+    <a-box class="bounding-boxes"
+    width="6" height="1" depth="1"
+    static-body
+    opacity="0"
+    position="-5 0.5 2.375"></a-box>
+    <a-box class="bounding-boxes"
+    width="1.2" height="0.75" depth="1.5"
+    static-body
+    opacity="0"
+    position="-2.6 0.375 3.3"></a-box>
+    <a-box class="bounding-boxes"
+    width="1.2" height="0.75" depth="1.5"
+    static-body
+    opacity="0"
+    position="-7.4 0.375 3.3"></a-box>
+
+    <a-entity id="tv"
+    rotation="0 180 0"
+    scale="2 2 2"
+    gltf-model="#tv"
+    position="-5 0.8 8.5"></a-entity>
+    <a-plane id="spotify-template"
+    width="2.5" height="1.475"
+    src="#spotify-template"
+    rotation="0 180 0"
+    position="-5 1.685 8.4"></a-plane>
+
+    <a-entity id="tv-table"
+    rotation="0 0 0"
+    scale="3 3 3"
+    gltf-model="#tv-table"
+    static-body
+    position="-5 0 8.5"></a-entity>
+
+    <a-entity id="speaker1"
+    rotation="0 200 0"
+    scale="0.01 0.01 0.01"
+    gltf-model="#speaker"
+    static-body
+    position="-2.75 0 8.5"></a-entity>
+
+    <a-entity id="speaker1"
+    rotation="0 160 0"
+    scale="0.01 0.01 0.01"
+    gltf-model="#speaker"
+    static-body
+    position="-7.25 0 8.5"></a-entity>
+
+    <a-entity id="dining-table"
+    rotation="0 0 0"
+    scale="0.15 0.15 0.1"
+    gltf-model="#dining-table"
+    static-body
+    position="4.75 -0.25 6.5"></a-entity>
+
+    <a-entity id="dining-chair1"
+    rotation="0 0 0"
+    scale="0.015 0.015 0.015"
+    gltf-model="#dining-chair"
+    static-body
+    position="4 0 5.3"></a-entity>
+
+    <a-entity id="dining-chair2"
+    rotation="0 0 0"
+    scale="0.015 0.015 0.015"
+    gltf-model="#dining-chair"
+    static-body
+    position="6 0 5.3"></a-entity>
+
+    <a-entity id="dining-chair3"
+    rotation="0 180 0"
+    scale="0.015 0.015 0.015"
+    gltf-model="#dining-chair"
+    static-body
+    position="4 0 7.7"></a-entity>
+
+    <a-entity id="dining-chair4"
+    rotation="0 180 0"
+    scale="0.015 0.015 0.015"
+    gltf-model="#dining-chair"
+    static-body
+    position="6 0 7.7"></a-entity>
+
+    <a-entity id="square-lamp"
+    rotation="0 0 0"
+    scale="0.0075 0.0075 0.0075"
+    gltf-model="#square-lamp"
+    position="0 4.5 0"></a-entity>
+
+    <a-entity id="carpet1"
+    rotation="0 0 0"
+    scale="3 2 3.8"
+    gltf-model="#carpet1"
+    position="-5 0.005 4.75"></a-entity>
+
+
+      <!--?upper-floor-->
+    <a-entity id="shower"
+    rotation="0 0 0"
+    scale="0.0175 0.0175 0.0175"
+    gltf-model="#shower"
+    position="6.3 5 -6.2"></a-entity>
+    <a-box class="bounding-boxes"
+    width="1.8" height="2" depth="1.75"
+    opacity="0"
+    static-body
+    position="7.1 6 -0.825"></a-box>
+
+    <a-entity id="shower-head"
+    rotation="0 270 0"
+    scale="0.04 0.04 0.04"
+    gltf-model="#shower-head"
+    position="7.75 7.75 -0.75"></a-entity>
+
+    <a-entity id="bathroom-sink"
+    rotation="0 90 0"
+    scale="1.2 1.2 1.2"
+    gltf-model="#sink"
+    position="0.5 7 -2.5"></a-entity>
+    <a-box class="bounding-boxes"
+    position="0.5 6.5 -2.5"
+    opacity="0"
+    static-body
+    width="0.75" height="3" depth="1.5"></a-box>
+
+    <a-entity id="toilet"
+    rotation="0 0 0"
+    scale="0.009 0.009 0.009"
+    gltf-model="#toilet"
+    static-body
+    position="5.5 5.5 -4.6"></a-entity>
+
+      <!--?terrace-->
+    <a-entity id="terrace-sofa1"
+    rotation="0 90 0"
+    scale="0.015 0.015 0.015"
+    gltf-model="#modern-sofa"
+    position="3.5 5 0.75">
+    </a-entity>
+    <a-box class="bounding-boxes"
+    height="1" width="2.5" depth="1.5"
+    opacity="0"
+    static-body
+    position="3.5 5.5 0.75"></a-box>
+
+    <a-entity id="terrace-sofa2"
+    rotation="0 180 0"
+    scale="0.015 0.015 0.015"
+    gltf-model="#modern-sofa"
+    static-body
+    position="0.75 5 3.5"></a-entity>
+
+    <a-entity id="coffee-table"
+    rotation="0 0 0"
+    scale="0.1 0.1 0.1"
+    gltf-model="#coffee-table"
+    static-body
+    position="3.5 6 3.5"></a-entity>
+
+    <a-entity id="terrace-lights"
+    rotation="0 0 0"
+    scale="2 2 2"
+    gltf-model="#terrace-lights"
+    position="4 8.5 0.2"></a-entity>
+
+    <a-entity id="terrace-lights"
+    rotation="0 90 0"
+    scale="2 2 2"
+    gltf-model="#terrace-lights"
+    position="0.2 8.5 4"></a-entity>
+
+
+    <a-entity kinematic-body="radius: 0.5" movement-controls="fly: false" rotation="0 0 0" position="0 0 0">
+      <a-entity cursor="rayOrigin:mouse"></a-entity>
+      <a-entity id="leftHand" shadow="cast: true" hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc"></a-entity>
+      <a-entity id="rightHand" shadow="cast: true" hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc" laser-controls="hand:right" raycaster="showline: true" line="color: orange; opacity: 1"></a-entity>
+      <a-entity id="camera" camera position="0 2 0" look-controls="pointerLockEnabled: false;"></a-entity>
+    </a-entity>
+
+    <a-entity id="renderer-camera" camera position="0 0 25"></a-entity>
+
+    <a-light type="ambient" color="#FFF"></a-light>
+  </a-scene>
+</body>
+
+</html>
